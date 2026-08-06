@@ -1,4 +1,4 @@
-## WEEK 3                            NETWORKING FUNDAMENTALS
+#                               NETWORKING FUNDAMENTALS
 
 KEY TOPICS
 
@@ -22,8 +22,7 @@ without an IP address, devices cannot communicate on a network.
 # REAL-LIFE EXAMPLE
 Imagine you want to send a letter to your friend. you need: the recipient's address, The postal service,
 
-ON A NETWORK:
-The IP address is the destination address. The network is the postal service. The data is the letter.
+ON A NETWORK:The IP address is the destination address. The network is the postal service. The data is the letter.
 
 # EXAMPLE OF AN IPV4 ADDRESS
 192.168.1.10
