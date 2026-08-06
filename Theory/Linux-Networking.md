@@ -12,15 +12,16 @@ KEY TOPICS
 8. NETWORKING TOOLS(ping,curl,ip,ss,netstat,dig,nslookup,traceroute)
 
 
-### LESSON 1                           IP ADDRESSES
+#                           IP ADDRESSES
 WHAT IS AN IP ADDRESS? 
 
-An ip address (Internet Protocol Address)is a unique number assigned to a device on a network. Think of it as a home address.
-just as a courier needs your house address to deliver a package, computers need an ip address to send and receive date.
-without an ip address, devices cannot communicate on a network.
+An IP address (Internet Protocol Address)is a unique number assigned to a device on a network. Think of it as a home address.
+just as a courier needs your house address to deliver a package, computers need an IP address to send and receive date.
+without an IP address, devices cannot communicate on a network.
 
 # REAL-LIFE EXAMPLE
 Imagine you want to send a letter to your friend. you need: the recipient's address, The postal service,
+
 ON A NETWORK:
 The IP address is the destination address. The network is the postal service. The data is the letter.
 
