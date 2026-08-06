@@ -26,12 +26,15 @@ Imagine you want to send a letter to your friend. you need: the recipient's addr
 The IP address is the destination address. The network is the postal service. The data is the letter.
 
  EXAMPLE OF AN IPV4 ADDRESS
-192.168.1.10
+192.168.1.10.
+
 An Ipv4 address has four numbers separated by dots. EXAMPLE: 192. 168. 1. 10
 Each number is called an octet and can range from 0 to 255.
 
  EXAMPLE OF IPV6 ADDRESS
-exmple; 2001:0db8:85a3:0000:0000:8a2e:0370:7334
+exmple; 
+2001:0db8:85a3:0000:0000:8a2e:0370:7334
+
 An Ipv6 address are 8 groups of hex numbers
 #                                     TPYE OF IP ADDRESS
 1. "Private Ip Address":
