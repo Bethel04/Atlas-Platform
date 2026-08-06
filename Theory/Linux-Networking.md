@@ -22,7 +22,7 @@ without an IP address, devices cannot communicate on a network.
  REAL-LIFE EXAMPLE
 Imagine you want to send a letter to your friend. you need: the recipient's address, The postal service,
 
-"ON A NETWORK":
+"ON A NETWORK":.
 The IP address is the destination address. The network is the postal service. The data is the letter.
 
  EXAMPLE OF AN IPV4 ADDRESS
