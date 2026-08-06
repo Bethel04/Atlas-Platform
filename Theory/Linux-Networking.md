@@ -19,21 +19,22 @@ An IP address (Internet Protocol Address)is a unique number assigned to a device
 just as a courier needs your house address to deliver a package, computers need an IP address to send and receive date.
 without an IP address, devices cannot communicate on a network.
 
-# REAL-LIFE EXAMPLE
+ REAL-LIFE EXAMPLE
 Imagine you want to send a letter to your friend. you need: the recipient's address, The postal service,
 
-ON A NETWORK:The IP address is the destination address. The network is the postal service. The data is the letter.
+"ON A NETWORK":
+The IP address is the destination address. The network is the postal service. The data is the letter.
 
-# EXAMPLE OF AN IPV4 ADDRESS
+ EXAMPLE OF AN IPV4 ADDRESS
 192.168.1.10
 An Ipv4 address has four numbers separated by dots. EXAMPLE: 192. 168. 1. 10
 Each number is called an octet and can range from 0 to 255.
 
-# EXAMPLE OF IPV6 ADDRESS
+ EXAMPLE OF IPV6 ADDRESS
 exmple; 2001:0db8:85a3:0000:0000:8a2e:0370:7334
 An Ipv6 address are 8 groups of hex numbers
 #                                     TPYE OF IP ADDRESS
-1. Private Ip Address
+1. "Private Ip Address":
 Used inside local networks such as: Homes,Schools,Offices. Example: 192.168.1.10, 10.0.0.5, 172.16.0.8
 These addresses are not directly accessible from the internet.
 
