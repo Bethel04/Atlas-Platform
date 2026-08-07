@@ -22,7 +22,7 @@ without an IP address, devices cannot communicate on a network.
  REAL-LIFE EXAMPLE
 Imagine you want to send a letter to your friend. you need: the recipient's address, The postal service,
 
-"ON A NETWORK":.
+ON A NETWORK:  
 The IP address is the destination address. The network is the postal service. The data is the letter.
 
  EXAMPLE OF AN IPV4 ADDRESS
@@ -37,11 +37,11 @@ exmple;
 
 An Ipv6 address are 8 groups of hex numbers
 #                                     TPYE OF IP ADDRESS
-1. "Private Ip Address":
+1. Private Ip Address:  
 Used inside local networks such as: Homes,Schools,Offices. Example: 192.168.1.10, 10.0.0.5, 172.16.0.8
 These addresses are not directly accessible from the internet.
 
-2. Public Ip Address
+2. Public Ip Address:  
 Assigned by your internet service Provider(ISP).This is the address the rest of the internet sees when your network
 communicates online.
 
