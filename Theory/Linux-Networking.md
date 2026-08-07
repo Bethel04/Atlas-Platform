@@ -19,63 +19,67 @@ An Ip address(Internet Protocol Address)is a unique number assigned to a device 
 just as a courier needs your house address to deliver a package, computers need an Ip address to send and receive date.
 without an Ip address, devices cannot communicate on a network.
 
-REAL-LIFE EXAMPLE;
+REAL-LIFE EXAMPLE: 
 Imagine you want to send a letter to your friend. you need: the recipient's address, The postal service,
 ON A NETWORK:
 The IP address is the destination address. The network is the postal service. The data is the letter.
 
-EXAMPLE OF AN IPV4 ADDRESS
-192.168.1.10
+EXAMPLE OF AN IPV4 ADDRESS: 
+
+192.168.1.10 
 An Ipv4 address has four numbers separated by dots. EXAMPLE: 192. 168. 1. 10
 Each number is called an octet and can range from 0 to 255.
 
- EXAMPLE OF IPV6 ADDRESS
-exmple:
- 2001:0db8:85a3:0000:0000:8a2e:0370:7334.
+ EXAMPLE OF IPV6 ADDRESS 
+
+exmple: 
+2001:0db8:85a3:0000:0000:8a2e:0370:7334 
 An Ipv6 address has 8 groups of hex numbers.
-#                                     TPYE OF IP ADDRESS
-1. Private Ip Address:
+#                                     TPYES OF IP ADDRESS
+1. Private Ip Address: 
 Used inside local networks such as: Homes,Schools,Offices. Example: 192.168.1.10, 10.0.0.5, 172.16.0.8
 These addresses are not directly accessible from the internet.
 
-2. Public Ip Address
+2. Public Ip Address 
 Assigned by your internet service Provider(ISP).This is the address the rest of the internet sees when your network
 communicates online.
 
-HOW DOES IS WORK?
-Your house = your device
-Street Address = ip address
-Post Office = Internet Routers
-Letters/Data = website, video,message
-SUPPOSE:
-Your laptop has the private Ip. 192.168.1.10
+HOW DOES IS WORK? 
+1. Your house = your device 
+2. Street Address = ip address
+3. Post Office = Internet Routers
+4. Letters/Data = website, video,message 
+
+SUPPOSE: 
+Your laptop has the private Ip. 192.168.1.10 
 Your router has a public ip assigned by your ISP
 
-WHEN YOU VISIT A WEBSITE:
-Your laptop sends the request to the router.
-The router translates your Private IP to its public IP(using a process called NAT)
-The website replies to the router's public ip 
-The router sends the response back to your laptop
+WHEN YOU VISIT A WEBSITE: 
+1. Your laptop sends the request to the router.
+2. The router translates your Private IP to its public IP(using a process called NAT)
+3. The website replies to the router's public ip 
+4. The router sends the response back to your laptop
 
-## VIEWING YOUR IP ADDRESS
-STEP 1
-Display all network interfaces: (ip a) Look for an interface such as: enp0s3, eth0, wlan0
+VIEWING YOUR IP ADDRESS
+STEP 1: 
+Display all network interfaces: (ip a) Look for an interface such as: enp0s3, eth0, wlan0 
 Find the line beginning with: (inet): for example; inet 192.168.1.25/24
 
-STEP 2
+STEP 2: 
 Display only your IP address: (hostname -I) This prints your system's IP address in a simpler format.
 
-STEP 3
+STEP 3: 
 Display your hostname:(hostname) This shows your computer's network name.
 
-# LESSON 2                       PUBLIC VS PRIVATE IP ADDRESSES
+#                             PUBLIC VS PRIVATE IP ADDRESSES
 
-WHAT IS A PRIVATE IP ADDRESS?
+WHAT IS A PRIVATE IP ADDRESS? 
+
 A Private IP address is used inside a local network. EXAMPLES Of local networks: your home wi-fi, your school network
-An office network
-Private IP addresses cannot be reached direactly from the internet.
+An office network,Private IP addresses cannot be reached directly from the internet.
 
-PRIVATE IP ADDRESS RANGES
+PRIVATE IP ADDRESS RANGES: 
+
 There are three reserved ranges:
 10.0.0.0 - 10.255.255.255.255
 172.16.0.0 - 172.31.255.255
