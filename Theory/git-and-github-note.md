@@ -87,3 +87,30 @@ A commit message should tell another user or person what you have changed in
 the file.
 example of a bad commit message is "update" here nobody knows what change
 A better commit message is "Add Atlas README" now we know something was added.
+
+## BRANCHES
+A branch is a movable pointer/reference to a 
+commit. A branch is a separate line of work 
+that comes from a main line.
+branch let you work on something new without 
+touching the main code.
+when you are working on your website main
+branch, you want to try a new feature, you 
+create a branch login-feature. you can break
+things, add code, text (main is till safe)
+when it works, you merge the branch back to 
+the main.***that is to say branch = safe copy 
+to experiment.***
+
+# FEATURE BRANCH
+A feature branch is a branch you create to build one single feature.
+example: your project is working fine on main.
+you want to add a new feature-let us say a 
+login page.instead of coding directly on main 
+and risking breaking it, you do;
+MAIN--------------->
+        FEATURE/LOGIN
+ALL YOUR CODE FOR LOGIN PAGE GOES IN 
+FEATUR/LOGIN-PAGE.WHEN IT'S FINISHED AND 
+TESTED, YOU CMERGE IT BACK, AFTER MERGING IT, 
+YOU DELETE THE FEATURE BRANCH.
