@@ -1,1 +1,3 @@
-This file was created on the main branch.
+This file demonstrates a Git merge conflict.
+Both main and feature branches contained different versions.
+The conflict has now been resolved.
