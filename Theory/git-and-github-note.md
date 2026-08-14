@@ -114,3 +114,41 @@ ALL YOUR CODE FOR LOGIN PAGE GOES IN
 FEATUR/LOGIN-PAGE.WHEN IT'S FINISHED AND 
 TESTED, YOU CMERGE IT BACK, AFTER MERGING IT, 
 YOU DELETE THE FEATURE BRANCH.
+
+## PULL REQUEST?
+A pull Request is a request to merge changes from one branch into another branch.
+Let create a Scenario
+now; you have main branch and feature/nginx branch
+you have finished your nginx work, instead of immediately doing:
+git switch main
+git merge feature/nginx
+you push the feature branch to Github and create a pull request, you basically
+tell Github: "i have finished the work, please review these changes and merge 
+them into the main.
+
+# A Pull Request Has Two Important Branches
+when creating a pull request, you wll see something similar to.
+base: main
+compare:feature/nginx
+
+This means:
+base = where the changes are going
+compare = where the chnages are coming from.
+
+# WHY DO WE USE PULL REQUEST?
+Imagine your are working at a company, you create a feature, you dont normally
+want to say " i chnaged the production code trust me"
+instead:
+DEVELOPER---->FEATURE BRANCH
+PULL REQUEST---->CODE REVIEW
+APPROVAL------>MERGE--->MAIN
+This pull request gives the team an opportunity to examine the work before it
+becomes part of the **main** project
+
+## PULL REQUEST VS PULL
+A Pull Request is not the same thing as **git pull**.
+
+# git pull
+this is a Git command that retrives chnages from a remote repository and integretes them into your local branch.
+  Pull Request
+This is a Github collaboration mechanism for proposing changes.
