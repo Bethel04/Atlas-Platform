@@ -152,3 +152,109 @@ A Pull Request is not the same thing as **git pull**.
 this is a Git command that retrives chnages from a remote repository and integretes them into your local branch.
   Pull Request
 This is a Github collaboration mechanism for proposing changes.
+
+# Rebase vs Merge
+
+1. First: What problem do merge and rebase solve?
+
+Git allows multiple people to work on different branches at the same time.
+
+For example:
+
+main
+A---B---C
+         \
+          D---E
+          feature
+
+While you're working on feature, somebody else adds a commit to main:
+
+A---B---C---F
+         \
+          D---E
+          feature
+
+Now the histories have diverged.
+
+Git needs a way to bring those histories back together.
+
+There are two major approaches:
+
+Merge and Rebase
+
+## What is merge?
+
+Merge is used to combine the work from two branches while preserving
+their separate histories.
+
+Merge means:
+
+Take the histories of two branches and combine them.
+
+Example:
+
+A---B---C---F
+         \   \
+          D---E---M
+
+**M** is the merge commit.
+
+Git is basically saying:
+
+"Both lines of development happened. I'll preserve both histories and create a new commit that joins them."
+
+Command
+
+If you're on your feature branch:
+
+git merge main
+
+Git takes the current main and merges it into your feature branch.
+
+## What is rebase?
+
+Rebase takes commits from my branch and replays them on top of another
+branch, usually main. This creates a more linear history.
+
+Rebase works differently.
+
+Instead of creating a merge commit, Git takes your feature commits and replays them on top of the latest main.
+
+Before:
+
+A---B---C---F
+         \
+          D---E
+
+After:
+
+A---B---C---F---D'---E'
+
+Notice something important:
+
+D and E became D' and E'.
+
+Why?
+
+Because Git created new versions of those commits on top of F.
+
+That's why we say:
+
+Rebase rewrites history.
+
+## Main difference
+
+Merge preserves the branching history and can create a merge commit.
+Rebase rewrites the branch history and usually produces a cleaner
+linear history.
+
+
+## When I would use merge
+
+I would use merge when preserving the actual history is important,
+especially when working with shared branches.
+
+## When I would use rebase
+
+I would use rebase on my own feature branch when I want to bring it
+up to date with main and keep the history clean.

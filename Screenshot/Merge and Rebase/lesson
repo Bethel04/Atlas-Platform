@@ -1,0 +1,14 @@
+When should you use each?
+Use merge when:
+
+You want to preserve the actual branching history.
+You're working on shared/public branches.
+You don't want to rewrite existing commits.
+
+Use rebase when:
+
+You're cleaning up your own feature branch.
+You want a linear history before opening a PR.
+The commits haven't been shared with other people.
+
+Golden rule: Don't casually rebase commits that other people are already using.
