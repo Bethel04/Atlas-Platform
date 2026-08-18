@@ -42,3 +42,38 @@ The repository was updated successfully and the Nginx configuration is now track
 The week's Git branching and Pull Request workflow has been applied to the Atlas project.
 
 Status: COMPLETE
+
+
+## MONDAY WEEK 3 TASK 
+
+Monday
+- Created the Atlas app directory
+- Created a Python virtual environment
+- Discovered python3.14-venv was missing
+- Installed python3.14-venv
+- Activated .venv
+- Installed Flask 3.1.3
+- Created the initial Flask API
+- Started the local development server
+- Tested GET /
+- Tested GET /notes
+- Added .gitignore so .venv isn't tracked
+- Committed the application scaffold
+
+python3 -m venv .venv
+→ failed because python3.14-venv was missing
+→ installed the required package
+→ recreated the environment successfully
+
+### Verification
+
+- Flask development server started successfully on 127.0.0.1:5000
+- GET / returned {"message": "Atlas is running"}
+- GET /notes returned {"notes": []}
+- .venv is ignored by Git
+
+### Weekly milestone
+
+The Atlas Flask application scaffold is working locally. PostgreSQL integration remains to be completed as part of the database/deployment stage.
+
+Status: IN PROGRESS
