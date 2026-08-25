@@ -77,3 +77,283 @@ python3 -m venv .venv
 The Atlas Flask application scaffold is working locally. PostgreSQL integration remains to be completed as part of the database/deployment stage.
 
 Status: IN PROGRESS
+
+##       WEDNESDAY
+Absolutely. Let's turn your **Wednesday build log** into a student-style record where **each task has the command you actually used underneath it**.
+
+# Wednesday — Manual Atlas Deployment
+
+### 1. Started Atlas Flask application on the Ubuntu host
+
+**Command:**
+
+```bash
+python app.py
+```
+
+**What it did:**
+
+Started your Flask application.
+
+Expected output:
+
+```text
+* Serving Flask app 'app'
+* Running on http://127.0.0.1:5000
+```
+
+---
+
+### 2. Configured Nginx as a reverse proxy
+
+**Created the Atlas Nginx configuration:**
+
+```bash
+sudo nano /etc/nginx/sites-available/atlas
+```
+
+**Configuration inside the file:**
+
+```nginx
+server {
+    listen 80;
+    server_name _;
+
+    location / {
+        proxy_pass http://127.0.0.1:5000;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    }
+}
+```
+
+**Enabled the configuration:**
+
+```bash
+sudo ln -s /etc/nginx/sites-available/atlas /etc/nginx/sites-enabled/atlas
+```
+
+**Tested the configuration:**
+
+```bash
+sudo nginx -t
+```
+
+Expected:
+
+```text
+syntax is ok
+test is successful
+```
+
+---
+
+### 3. Nginx listens on HTTP port 80
+
+**Command used to verify:**
+
+```bash
+sudo ss -tlnp | grep -E ':80|:5000'
+```
+
+You saw:
+
+```text
+0.0.0.0:80       nginx
+127.0.0.1:5000   python
+```
+
+This means:
+
+```text
+Nginx → port 80
+Flask → port 5000
+```
+
+---
+
+### 4. Nginx forwards requests to Flask on `127.0.0.1:5000`
+
+**Reloaded Nginx after configuration:**
+
+```bash
+sudo systemctl reload nginx
+```
+
+**Tested Nginx → Flask:**
+
+```bash
+curl http://127.0.0.1
+```
+
+Response:
+
+```json
+{
+    "message": "Atlas is running"
+}
+```
+
+This proved:
+
+```text
+curl
+ ↓
+Nginx :80
+ ↓
+proxy_pass
+ ↓
+Flask :5000
+```
+
+---
+
+### 5. Confirmed local HTTP access with curl
+
+**Direct Flask test:**
+
+```bash
+curl http://127.0.0.1:5000
+```
+
+Response:
+
+```json
+{
+    "message": "Atlas is running"
+}
+```
+
+**Nginx test:**
+
+```bash
+curl http://127.0.0.1
+```
+
+Response:
+
+```json
+{
+    "message": "Atlas is running"
+}
+```
+
+---
+
+### 6. Confirmed external HTTP access from another device
+
+First, we found the Ubuntu machine's IP:
+
+```bash
+ip a
+```
+
+Your Ubuntu IP was:
+
+```text
+10.125.95.242
+```
+
+We also allowed HTTP through UFW:
+
+```bash
+sudo ufw allow 80/tcp
+```
+
+Then from your **phone/another device**, you opened:
+
+```text
+http://10.125.95.242
+```
+
+And Atlas responded successfully.
+
+---
+
+### 7. Atlas returned `"Atlas is running"` successfully
+
+**Command used on Ubuntu:**
+
+```bash
+curl http://10.125.95.242
+```
+
+Response:
+
+```json
+{
+    "message": "Atlas is running"
+}
+```
+
+And from your phone:
+
+```text
+http://10.125.95.242
+```
+
+also worked. ✅
+
+---
+
+# Your complete Wednesday command record
+
+```bash
+# Start Flask
+python app.py
+
+# Create Nginx Atlas configuration
+sudo nano /etc/nginx/sites-available/atlas
+
+# Enable Atlas site
+sudo ln -s /etc/nginx/sites-available/atlas /etc/nginx/sites-enabled/atlas
+
+# Test Nginx configuration
+sudo nginx -t
+
+# Reload Nginx
+sudo systemctl reload nginx
+
+# Check Nginx and Flask ports
+sudo ss -tlnp | grep -E ':80|:5000'
+
+# Test Flask directly
+curl http://127.0.0.1:5000
+
+# Test Nginx → Flask
+curl http://127.0.0.1
+
+# Check Ubuntu IP
+ip a
+
+# Allow HTTP through firewall
+sudo ufw allow 80/tcp
+
+# Test using Ubuntu's network IP
+curl http://10.125.95.242
+```
+
+### And the Git work
+
+```bash
+# Check changes
+git status
+
+# Stage changes
+git add .
+
+# Stage requirements.txt from parent directory
+git add ../requirements.txt
+
+# Commit
+git commit -m "Deploy Atlas behind nginx"
+
+# Push to GitHub
+git push origin main
+
+# Final check
+git status
+```
+
+**This is a very good Wednesday build-log entry because it records not just what you accomplished, but the commands you used to prove each part worked.**
