@@ -1,4 +1,9 @@
-##   Git & GitHub
+## Week 2: Git & GitHub Deep Dive
+1. Repositories
+2. commits
+3. .gitignore
+4. writing genuinely meaningful commit messages.
+
 
 What is Git?
 Git is a version control system. it tracks changes to my files over time. in a complete term we can say git is a version control system used to 
@@ -9,7 +14,7 @@ Github is an online platform that host Git repositories and provides collaborati
 
 my computer ---git push --> github
 
-What is a Repository?
+#  What is a Repository?
 A repository, commonly called a repo, is a Project managed by Git. my directory becomes a git repository when Git initiallizes it and create the .git 
 directory. which made my atlas-project my git repo, where all my project are tracked by git. 
 
@@ -58,3 +63,39 @@ Good commit is important because six month later, someone can run: **git log* an
 .gitignore tells git not to track these files, because we do not want sensitive file to be tracked by git, such as our password, .log, .tmp etc
 we can create one by using the command **touch .gitignore** then edit those sensitive file to .gitignore.
 .gitinore is Git configuration file and directores that Git should intentionally ignore when detecting untracked changes.
+
+## Branching - feature branches, switching between them, resolving a deliberately created merge conflict.
+
+# Branching
+A git branch is essentially a moveable pointer to a commit. the branch gives me another line of development inside the same repository.
+- branch (feature/nginx) a line of development.
+- working tree, the files currently sitting in your directory.
+- commit, A saved snapshot in git history.
+
+so:
+branch--->point to--->commit--->represents---->snapshot of project
+
+Creating a feature branch.
+suppose you are currently here (MAIN BRANCH) and i want to work on nginx. i created a new branch with the command **git switch -c feature/nginx**
+let me breack it down:
+git ---> git program. switch --->change branches. -c --> create the branch. feature/nginx ---> branch name.
+so the command means create a new branch called feature/nginx and switch me to it.
+
+To know which branch i am on we use the **git branch**  (*) this asterisk sign point on the branch i am currently on. **git status** it will tells me
+something like (on branch feature/nginx or on main). 
+
+To switch branches, example to move to main branch ***git switch main**. to move to feature braanch **git switch feature/nginx**.
+
+N/B
+Before switching branches, git may stop you if you have changes that could be overwritten. example 
+Feature/nginx
+    |__modified nginx.conf
+    |__Not commited
+
+then i try: git switch main. git may say i can not safely switch because your changes could be overwritten.
+
+# Merge conflict
+
+A merge conflict happens when git cannot automatically decide which change should win. let use an example.
+
+How i created a merge conflict.
