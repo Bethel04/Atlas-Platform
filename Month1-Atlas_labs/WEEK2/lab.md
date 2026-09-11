@@ -97,5 +97,42 @@ then i try: git switch main. git may say i can not safely switch because your ch
 # Merge conflict
 
 A merge conflict happens when git cannot automatically decide which change should win. let use an example.
+Imagine main has (hello Atlas) and feature branch has (Hello Atlas Project) meanwhile someone esle changes the same line on main branch to (welcome to
+Atlas). now git has, main:---**hello atlas**--welcome to Atlas. feature branch has **hello Atlas**---Hello Atlas Project
+git says: we both changed the same thing. i am not to guess.
+that is a merge conflict.
 
-How i created a merge conflict.
+##    How does a conflict look like?
+git may put this into the file:
+<<<<<HEAD
+Welcome to Atlas
+=============
+Hello Atlas Project
+>>>>> feature/nginx
+
+##  to resovle a conflict
+we must decide what the find file should say. maybe i decide: welcome to The Atlas Project.
+then we remove the conflict markers, and then run git add <file>. this tells git 'we have resolved the conflict." then we run the
+command git commit, this records the merge resolution.
+
+##             Hands on labs (defending my screenshot)
+
+First i checked the status of my branch using the commabd **git status** and saw lab.md was modified. i staged it by typing the **git add <file> and 
+then commited it to the git history using the **git commit -m "add changes in lab.md"** then i created a new branch called feature/branch-lab using
+"git switch -c feature/branch-lab" to work on a new task. inside my feature/branch-lab i created a new file branch-lab.txt and staged it for the
+next commit." using git add <file> then i commited the file to the git history, now i ran git status and it shows thst my working tree it clean which
+means the feature branch is done.
+Then i switched to the master. using **git switch master*, then i tried (ls) to check if i will see the branch-lab.txt i created when i was in the
+festure branch. but the ouput shows that is was not there, then i created the  same file (branch-lab.txt) but with different content. this file was
+created on the master branch. that i checked the status of my master branch which i was the working directory has not been staged due to the file i
+created. so i staged the file using git add <file version> after that i commited the file to my master history. when i tried to merge master branch to
+feature /branch-lab, git could not decide which version to keep. so it stopped and gave me a coflict. git told me that there was 'add/add' conflict.
+that means both branches added the same new file. the i ran git status which comfirmed that branch-lab.txt is urmerged and needs to be fixed.'
+git marked the conflict with <<<<<HEAD for my current branch content, and >>>>> master for the incoming branch content. the ====== saparates them. the 
+let me see both version."
+then i open the file in nano and i removed the <<<<<<<<<   >>>>>>>>> markers, and decided to keep the master version after editing, the file only has
+the final content i want. after fixing the file, i have to git add it to mark the conflict as resolved, then git commit to complete the merge.then i
+ran git status and it now shows the conflict is resolved and ready to commit. A merge in git is not complete until you commit. i made a merge commit
+with a clear message git add -m "merge master into feature/branch. then i used git log --graph to verify. the when i ran git branch to know which 
+branch i am current in which the output shows that i am in feature/branch-lab, then i ran git merge master again and git said "Already up to date".
+that proves the merge was successful and feature now has everything from master.
