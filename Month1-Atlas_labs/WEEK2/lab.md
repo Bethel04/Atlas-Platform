@@ -146,3 +146,40 @@ that proves the merge was successful and feature now has everything from master.
 
 PULL REQUESTS?
 
+A pull request is the request to merge changes from one branch into another on Github. for example: feature/branch-lab ------ pr(please review my 
+changes) Github--master.
+
+A pr gives you a place to:
+- see the changes 
+- review the code
+- discuse changes
+- check commits
+- check whether there are merge conflicts
+- approve the changes
+- merge the branch
+
+N/B
+A pull request is not a Git command. It is a Github collaboration/review mechanism built around Git branches.
+
+A pull request is more like: Github, i have changes on this branch. please let me review them before merging them into another branch.
+so:
+LOCAL GIT = merge histories locally
+GITHUB = review and approve and merge
+we need to push a branch to Github before Github can show us a pull request. Github can not review a branch that exists only on your laptop.we nee to 
+send that branch on Github repo.
+so:
+My laptop ----> git push --- feature branch exist remotely --- pull request becomes possible.
+
+N/B 
+Origin is the conventional local name git gives to the remote repository i cloned or connected to. it is not necessarily your repsitory,
+And
+**git fetch** downloads update from the remote and update your remote-tracking references; it does not merge those changes into your current branch.
+**git push** uploads your local commits/branch changes to the remote
+
+## hands on lab(explaination of what i have done on pull request)
+
+first i created a new branch called **feature/pr-lab** with -c which means create and switch. the i used git branch to confirm i am now on feature/
+pr-lab and master still exists. this follows the rule: never work directly on master.
+I listed files, the created PR-LAB.MD using touch command. i open it in nano and wrote notes about pull requests. then i used cat to verify the 
+content was saved correctly.after that i ran git status to show the state of my git, which shows PR-LAB.md is untracked, next step would be git add 
+PR-LAB.md and git commit -m add PR notes' then git push origin feature/pr-lab.
