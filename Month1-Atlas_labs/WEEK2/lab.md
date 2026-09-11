@@ -183,3 +183,41 @@ pr-lab and master still exists. this follows the rule: never work directly on ma
 I listed files, the created PR-LAB.MD using touch command. i open it in nano and wrote notes about pull requests. then i used cat to verify the 
 content was saved correctly.after that i ran git status to show the state of my git, which shows PR-LAB.md is untracked, next step would be git add 
 PR-LAB.md and git commit -m add PR notes' then git push origin feature/pr-lab.
+
+
+## Rebase vs. merge - practice both on a throwaway branch; understand when each is the right call.
+
+#  MERGE
+
+THink of merge as: Bring these two lines of history together, 
+suppose: A---B---C    master
+_____________\
+______________D----E  Feature
+
+yout switch to master and run:
+git merge feature
+Git may create a merge commit: A----B---C---M   master
+_____________________________________\D----E--'   feature
+
+M is the merge commit
+it says: i combined the histories of these two branches.
+
+N/B
+Merge does not rewrite existing commits.
+
+#   REBASE
+
+Rebase takes your feature commits and replays them on top of the latest master.
+
+before: A--B--C    master
+___________\
+____________D---E feature
+
+After rebasing:
+A--B--C--D'--E'  feature
+the feature commit are now based on C 
+WHY THE '?
+
+Because rebase creates new commit identities. we can simply say: Rebase moves/replays your branchs commit onto a new base commit.
+N/B
+Merge preserves history, Rebase rewrites history. we need to be careful with rebase because is rewrites history other people are already using.
