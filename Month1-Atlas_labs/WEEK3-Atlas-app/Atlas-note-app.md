@@ -9,31 +9,6 @@ the user sends requests such as: POST  /note, use to create note or GET /notes t
 # What does "scaffold" mean?
 
 Scaffold means creating the basic structure of an application before building all its features.
-for example:
-For our Atlas-plaform directory we will included:
-- app
-- __init__.py
-- routes.py 
-- db.py
-
-then in our texts/ file we will have:
-- .gitignore
-- requirements.txt
-- README.md
-
-Full breakdown:
-- Atlas-platform: This is the root directory of my project
-- app: My main application code, this is called an application package or blueprint. keeps all my code together.
-- __init__.py: That is our initializer file. makes app a proper  python package. this is where i crete and configure the flask app.
-- routes.py: this where all URLs/endponit live here. this handles all the routing logic. when user goes to /, this file decides what to return.
-- db.py: is is my database connection and models. example: functions to connect to postgres/MYSQL, this separates database logic from web logic. 
-
-2. TESTS/ - this is where i put automated tests with pytest, to make sure my routes and DB functions work before  i deploy.
-- .gitignore: tells git what files note to track or upload to Github. i do not want to push my virual environment, secrets, or cache files to git.
-- requirements.txt: this is the list of all the list of python packages my app needs. like:(flask,SQLAlchemy,gunicorn). this lests anyone clone my 
-repo and insall all dependencies with one command, 
--README.md: my documentation for humas, my project name, how, to instal, how to run, how to deploy. so that i and another dev can understand how to set
-this up in 6 months later.
 
 #   What is Flask?
 
@@ -74,4 +49,21 @@ PostgreSQL = database/data layer
 
 they have two different jobs. (Clent ---Flask API --- Postgresql)
 
-## Project- Build Atlas Notes API
+## Project- Build Atlas APP
+
+step 1. create the Atlas application directory. using mkdir atlas-app, enter the directory using cd Atlas-app.
+step 2. create a python virtual environment, because we do not want Atlas's Python packages mixed with ubuntu's system python.
+run:
+python3 -m venv .venv
+think of .venv as a private python environment for atlas. we activate it using **source .venv/bin/activate** the .venv tells me: "i am currently using 
+Atlas's private python environment.
+
+step 3. install flask and postgreSQL libraries. RUN: pip install flask psycopg2-binary. were are installing two thing, the Flask.(this is the python 
+frameworkk that will allow use to create our web API). psycopg2 psycopy2 allows Python/Flask to communicate with postgreSQL. 
+step 4. create the application file RUN: touch app.py, to create an empty file, then we check it using ls.
+step 5. put the first flask application in app.py using nano app.py, after that i run python app.py, is will show that the app is running locally
+in my virtual enviroment.then we open another terminal and test it using curl http://127.0.0.1:5000. WE SEE THE MESSAGES ATLAS IS RUNNIG.
+
+let the atlas_app the permission it needs inside atlas_notes, run sudo -u postgres psql -d atlas_notes. i should see, atlas_notes=#.
+give atlas_app access to the public achema. run inside postgreSQL: GRANT USAGE ON SCHEMA PUBLIC TO atlas_app;. which mean atlas_is allowed to use the 
+public schema. then we can grant the permission is need
