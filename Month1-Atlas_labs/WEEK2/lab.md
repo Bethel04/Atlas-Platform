@@ -6,6 +6,7 @@
 
 
 What is Git?
+
 Git is a version control system. it tracks changes to my files over time. in a complete term we can say git is a version control system used to 
 track changes to files and manage different version of a project.
 
@@ -197,7 +198,7 @@ ______________D----E  Feature
 yout switch to master and run:
 git merge feature
 Git may create a merge commit: A----B---C---M   master
-_____________________________________\D----E--'   feature
+_____________________________________\D----E--feature
 
 M is the merge commit
 it says: i combined the histories of these two branches.
@@ -221,3 +222,50 @@ WHY THE '?
 Because rebase creates new commit identities. we can simply say: Rebase moves/replays your branchs commit onto a new base commit.
 N/B
 Merge preserves history, Rebase rewrites history. we need to be careful with rebase because is rewrites history other people are already using.
+
+## understand when each is the right call.
+
+Good use of rebase: my own feature branch , i am the only person working on feature. master has changes. and i want feature to be updated. i ran
+git switch feature. then ran git rebase master.
+
+Bas use of rebase: My team has a shared branch: team-feature, five developers are using it. i ran **git rebase master** and rewrite commits that everyone else already 
+has. that is **DANGEROUS**. in that situation, merge is usually safer. git merge master.
+
+REBASE: "My branch is mine, i will clean/update its history before i share it." 
+MERGE: " These branches already have histories, i willl join them without rewriting them.
+
+when would i use rebase?
+i would use rebase on my own feature branch when i want to incorporate the lastes changes from master branch and maintain a clean, linear history.
+i avoid rebasing shared branches because rebase rewrites commit history.
+
+##     practice 
+I created a new branch using git switch -c feature/rebase-demo. then i created a file named rebase-demo.txt, i add a content inside the file. then 
+I stage and commited the file to git history, i switchthe master branch, created a file and add content inside the file, stage and commit the file
+the sitch back to the feature/rebase-demo. then i did git rebase master, this means we are telling git to replay my feature branch commit on top of 
+the latest master.
+
+## PROJECT DAY ATLAS V0.1
+
+Goal: Apply the full git branching + pull request workflow to atlas by add the nginx configuration as trcked code, opeing a PR reviewing it, merging, 
+and taggging the release as v0.1
+
+We currently have an Atlas project and an Nginx configuration on ubuntu vm. now, we want to take that configuration and make it part of our Git
+repository.
+
+we do not directly make the new change on master. instead: we create a feature branch, make changes commit, push feature branch, open pull request
+reviw it, merge into master, tag master as v0.1.
+
+PROJECT.
+i ran git status to check the state of my git, N/B do not create the feature branch if you are already on another unfinished branch.
+i created a new branch for my niginx configuration, using git switch -c feature/nginx-config. after that i find my Nginx configuration.
+N/B
+Before copying anything, first identify the configuration we are going to track. common Ningx location include: /etc/nginx/nginx.conf and 
+site configuration such as: /etc/nginx/sites-available/.  and   /etc/nginx/sites-enable/.  after we ran sudo nginx -T, this displays the effective 
+nginx configuration. my nginx file /etc/nginx/sites-available/Atlas-platform1. then i use sudo nginx -T to displays the effective nginx configuration
+then i put the configuration inside a newly created infra/nginx inside my atlas-platform1, then i copy the nginx configuration file, to my atlas infra
+directory using the command **sudo cp /etc/nginx/sites-available/Atlas-platform1  infra**
+then i checked git status and the file is still in my working directory, then i stage and commit it. then push the branch to my github for a 
+to create a pull request, review it and merge the PR. then i move to my git, switch to my master branch and pull the origin master to my git history
+after that i ran the git log --oneline --decorate -s. to see my git log. after that we create the Atlas v0.1 tag using **git tag v0.1** then i checked 
+it git tag and it in v0.1 after that i push the tag to Github using git push origin v0.1 tag. then comfirm if the tag is in my git history we use
+git log --oneline --decorate -s
