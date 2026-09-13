@@ -19,6 +19,7 @@ Atlas is being developed on linux environment and currently includes:
 - ufw firewall configuration 
 - nginx web server 
 - nginx reverse-proxy configuration.
+- Git & GitHub Deep Dive
 
 # What Atlas Inheritend from the pre-curriculum linux labs
 
@@ -62,3 +63,11 @@ KEY TOPICS
 6. TCP VS UDP
 7. HTTP VS HTTPS
 8. NETWORKING TOOLS(ping,curl,ip,ss,netstat,dig,nslookup,traceroute)
+
+## Git & GitHub Deep Dive
+- Repositories
+- commits
+- .gitignore
+- Branching
+- Pull requests
+- Rebase vs. merge
