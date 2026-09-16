@@ -1,0 +1,10 @@
+#!/bin/bash
+
+name="Atlas"
+port=5000
+
+echo "Application: $name"
+echo "Port: $port"
+echo "Hello $1"
+echo "Production $2"
+echo "bethel$
