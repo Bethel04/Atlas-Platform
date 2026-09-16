@@ -1,66 +1,70 @@
-## Re-harden the existing Ubuntu VM specifically as the 'Atlas v0.1 host': create adedicated non-root deploy user, configure UFW, disable password-based SSH (key-only).
+# Re-harden the existing Ubuntu VM specifically as the 'Atlas v0.1 host': create adedicated non-root deploy user, configure UFW, disable password-based SSH (key-only).
 
-# WHY WE HARDEN OUR LAPTOP.
+## WHY WE HARDEN OUR LAPTOP.
 
 the goal is not  to make the machine unhackable. the goal is to reduce attack
 surface and limit damage if something goes wrong.
 
 FIRST.
-I created a dedicated user for my Atlas.
-using the command (**sudo adduser bethel**) ubuntu asked for a password for
-my new user and some optional informations. 
+
+I created a dedicated user for my Atlas. using the command (**sudo adduser bethel**) ubuntu asked for a password for my new user and some optional
+ informations. 
 
 adduser or sudo adduser is a command used to create user account, create 
 home directory, 
 
 After that i added my dedicated user to the sudo group. because i want my
 user to perform authorized administrative tasks. 
-using the command **sudo usermod -aG sudo bethel**. the whole command means add
+
+i used the command **sudo usermod -aG sudo bethel** to add the user bethel is the sudo group. the whole command means add
 bethel to the sudo group without removing its existing supplementary groups.
 
 N/B
--aG is important because we do not not want to accidentally replace the user's
-existing supplementary groups.-aG means append to group membership.
 
-Inconclusion, my deploy user (bethel). was created as a normal user account 
-that has authorized access to sudo, allowing it to execute specific commands 
-with elevated privileges. example **sudo apt update, upgrade, install apt**.
+**-aG** is important because we do not not want to accidentally replace the user's existing supplementary groups.-aG means append to group membership.
+
+**Inconclusion**
+
+my deploy user (bethel). was created as a normal user account that have authorized access to sudo, allowing it to execute specific commands 
+with elevated privileges, using **sudo*.  example **sudo apt update, upgrade, install apt**.
 
 
- #        CONFIGURATION OF UFW
-Uncomplicated firewall, provides a simpler commad-line interface for managing
-firewall rules, the important 
+##        CONFIGURATION OF UFW
+
+UFW stands for Uncomplicated firewall, provides a simpler commad-line interface for managing firewall rules, the important 
 concepts are: Allow. Deny. Reject. Incoming. Outgoing. Port. Protocol and
 Default policy.
 
 Ufw first rule: inspect before changing things blindly.
-our first command is (**sudo ufw status verbose**).this checks the status of my
-firewall in a more detailed way.
-the command output shows if UFW is enable, and what rules are currently 
-configured.
-Why ufw start as 'inactive'. imagine turn a fire wall with no rules. it will 
-block everthing  by default including my ssh, http, etc. i will lock my self 
-out of my oen server or laptop. so linux keep ufw as inactive until i set the
-rules and tell it what to allow.
 
-ufw rule: 
-i set the default policy.(**sudo ufw default deny incoming**).this means 
-incoming connections are denied
-unless a rule explicitly allows them. then we run (**sudo ufw default allow
-outgoing**).this means outgoing connections are allowed by default. then we
-allow the port we want to use like port 22 or Openssh. using
-the command **sudo ufw allow port 22**
-N/B sudo ufw show added: this lets us see the rule that have been added in our
-firewall is not active.
-now we enable UFW, using the command **sudo ufw enable**. our firewall is set
-and active.
-we can also disable the firewall using **sudo ufw disable**, this turn ufw off.
-my pc/server will accept all traffic again. no rule eill be enforced.
-to wipe out everything or to start from scratch, we use **sudo ufw reset**. 
-ithis command does two thing it disable ufw and delete all rules i have created 
-to a clean state. 
-why we use it, when i messed up the rules or locked myself out, or just want to reconfigure everything from zero.
-N/B disable turn off my ufw while reset delete the rules and turn off ufw.
+our first command is (**sudo ufw status verbose**).this checks the status of my firewall in a more detailed way. the command output shows if UFW is 
+enable, and what rules are currently configured.
+
+**Why ufw start as 'inactive':**
+
+Imagine turn a fire wall with no rules. it will block everthing, by default including my ssh, http, etc. i will lock myself out of my own server. so 
+linux keep ufw as inactive until i set the rules and tell it what to allow.
+
+**ufw rule:** 
+
+- I set the default policy.(**sudo ufw default deny incoming**).this means incoming connections are denied unless a rule explicitly allows them. 
+- then we run (**sudo ufw default allow outgoing**).this means outgoing connections are allowed by default. this means the server can go out the 
+internet. so apt update, pip install, curl google.com will still work.(if you do it in wrong order you lock yourself out: example if you do deny 
+incoming + sudo ufw enable Before you allow port 22, you will kick yourself out of ssh and can not login again.).
+- then we allow the port we want to use like port 22 or Openssh. using the command **sudo ufw allow port 22** this allows ssh service.
+
+**N/B**
+
+1. sudo ufw show added : this ufw command  let us see the rule that have been added in our firewall is not active or active.
+
+- now we enable UFW, using the command **sudo ufw enable**. our firewall is set and active.
+- we can also disable the firewall using **sudo ufw disable**, this turn ufw off. my pc/server will accept all traffic again. no rule will be enforced.
+- **sudo ufw reset**, disables ufw and deletes all rules, resetting to clean state. use it when you messed up your rules or want to reconfigure from
+zero. you will need to add your rules again and enable UFW.
+
+**N/B** 
+
+disable turn off my ufw while reset delete the rules and turn off ufw.
 
 #            SSH. disable password-based SSH (key-only).
 First we create shh key using (**ssh-keygen**). we will see something like, 

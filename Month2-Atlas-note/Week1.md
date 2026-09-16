@@ -1,9 +1,8 @@
-##  Variables, conditionals, loops in Bash; writing a script that accepts arguments ($1, $@).
+#  Variables, conditionals, loops in Bash; writing a script that accepts arguments ($1, $@).
 
-# 1. What is Bash?
+## 1. What is Bash?
 
 when we open  the terminal and type the command inside the terminal, we are talking to bash, that brings us to the definition of bash
-
 Bash stands for Bourne Again SHell. It’s a **command-line shell**. a program that lets you interact with your computer by typing commands instead of 
 clicking through menus. for example we can type the command (ls) in the terminal to list files or cd to move into a directory.
 it can run individual commands or execute **Bash scripts** (.sh files), which automate a sequence of commands.
@@ -17,10 +16,9 @@ or example:
 - cd my_folder
 - touch file.txt
 
-# 2. What is a Bash script?
+## 2. What is a Bash script?
 
 Bash scripting means writing a file containing Bash commands so the computer can execute those commands for you automatically.
-
 Without Bash scripting
 
 You might manually type:
@@ -30,7 +28,7 @@ You might manually type:
 - touch file.txt
 - echo "Backup created"
 
-You have to type each command yourself. With Bash scripting, You put those commands into one file:
+You have to type each command yourself. BUT With Bash scripting, You put those commands into one file:
 
 #!/bin/bash
 
@@ -39,17 +37,9 @@ You have to type each command yourself. With Bash scripting, You put those comma
 - touch file.txt
 - echo "Backup created"
 
-Then you run the script:
+Then you run the script: bash backup.sh
 
-bash backup.sh
-
-Bash executes the commands one after another.
-
-The simple idea
-
-Think of Bash as a language.
-
-Think of a Bash script as a recipe.
+Bash executes the commands one after another. The simple idea, Think of Bash as a language. Think of a Bash script as a recipe.
 
 For example:
 
@@ -57,28 +47,28 @@ Create a folder → enter the folder → create a file → print a message.
 
 You write that recipe into a .sh file, and Bash follows it.
 
-#  Let's create our first script
+##  Let's create our first script
 
-we use text editor to write a script just like vim, nano, or vs code, to create our script.
+we use text editor like vim, nano, vs code to write our script.
 
-we are using nano hello.sh (.sh represent shell), we are basically saying open new file called hello.sh. inside the file we create our script.
+when we use code hello.sh (.sh represent shell), we are basically saying vs code open new file called hello.sh. inside the file we create our script.
 
 #!/bin/bash
 
 echo "Hello"
 
-now we save it using the control o in nano but in our vs code we use control s to save the file.
+after that we save the file using control s. then we give the file permission to excute, using chmod +x hello.sh.
 
-# What did we write?
+## What did we write?
 
-#!/bin/bash : also know as the shebang, it is used to tell linux to use bash to run a script, and the echo means print, so echo hello means 
+**#!/bin/bash** : also known as the shebang, it is used to tell linux to use bash to run a script, and the echo means print, so echo hello means 
 
-print hello on the screen. So our script is basically: means start bash print hello word. then we run the script.
+print hello on the screen. So our script is basically means: start bash print hello word. then we run the script.
 
-Run the script?
+**Run the script?**
 
-we give the file permission to excute, usng the commnad chmod +x then the file name hello.sh, chmod +x gives the file permission to be executed as a 
-program. then we run ./hello.sh  the output will be hello.
+before we run the script we give the file permission to excute, usng the commnad chmod +x hello.sh, chmod +x gives the file permission to be executed
+as a program. then we run ./hello.sh  and the output will be hello.
 
 ## Now variables
 

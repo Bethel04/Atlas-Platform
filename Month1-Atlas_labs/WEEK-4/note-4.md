@@ -649,3 +649,43 @@ Atlas is running as a systemd service, so journalctl allows me to inspect the lo
 How did you trace the request?
 
 I generated a real HTTP request using curl, watched the nginx access log with tail -f, and watched the Atlas service logs with journalctl -u ... -f. I correlated the timestamps and request information to follow the request from nginx into Atlas and back.
+
+# COMMANDS i JUST LEARNED
+
+Keep this list:
+
+ls -lh /var/log/nginx/
+
+Look at nginx log files and their sizes.
+
+cat /etc/logrotate.d/nginx
+
+Read nginx's logrotate configuration.
+
+logrotate --version
+
+Check logrotate installation/version.
+
+sudo logrotate -d /etc/logrotate.d/nginx
+
+Test what logrotate would do without actually rotating.
+
+systemctl list-units --type=service | grep -i atlas
+
+Find the Atlas service name.
+
+sudo journalctl -u atlas --no-pager -n 30
+
+Read the latest Atlas logs.
+
+sudo tail -f /var/log/nginx/access.log
+
+Watch nginx requests in real time.
+
+sudo journalctl -u atlas -f
+
+Watch Atlas logs in real time.
+
+curl http://127.0.0.1/
+
+Generate a real HTTP request to Atlas through nginx.
