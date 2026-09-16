@@ -86,9 +86,7 @@ name="Bethel"
 
 age=25
 
-Here:
-
-name is the variable
+Here: name is the variable
 
 "Bethel" is the value
 
@@ -100,7 +98,7 @@ Using the variable
 
 To get the value stored inside a Bash variable, put $ before its name:
 
-name="Bethel"
+example name="Bethel"
 
 echo $name
 
@@ -138,11 +136,11 @@ My server is Atlas
 
 Important Bash rule: don't put spaces around =.
 
-✅ Correct:
+Correct:
 
 name="Bethel"
 
-# Let's actually do it
+## Let's actually do it
 
 Create another script:
 
@@ -201,19 +199,7 @@ bethel
 
 # LESSON 8 — Why $?
 
-This is very important.
-
-When we create the variable:
-
-name="bethel"
-
-we don't use $.
-
-When we use/read the variable:
-
-echo "$bethel"
-
-we use $.
+This is very important. When we create the variable: name="bethel", we don't use $. When we use/read the variable: echo "$bethel", we use $.
 
 Think:
 
@@ -227,13 +213,11 @@ $name
 
 That's the basic rule.
 
-# "A variable is a named place where I store a value so that I can use that value later in my script."
-
+# A variable is a named place where I store a value so that I can use that value later in my script
 
 How do i create one?
 
 I give it a name and assign a value, for example name=\"Atlas\".
-
 
 How do i read it?
 
@@ -261,69 +245,45 @@ is information we gave to the script.
 
 This is called an argument.
 
-# what is an agurment?
+An argument  are information you give to a command so it knows what to do. example sudo ufw allow port 22.
+
+allow = the command (what to do)
+
+22 = the argument (allow what? port 22)
+
+variable = a box that stores something
+
+argument = something you give to a command/function to work on
+
+## what is an agurment?
 
 an argument is a value you give to a command or script when you run it.
 
-Think of it like this:
+Think of it like this: Command = what you want the computer to do. Argument = what you want the command to do it to / with
 
-Command = what you want the computer to do
+For example: ls /home. ls → command: /home → argument. You're telling ls: List the contents of /home.
 
-Argument = what you want the command to do it to / with
-
-For example:
-
-ls /home
-
-ls → command
-
-/home → argument
-
-You're telling ls:
-
-"List the contents of /home."
-
-Another example:
-
-mkdir backup
-
-mkdir → command
-
-backup → argument
-
-You're telling mkdir:
-
-"Create a directory called backup."
+Another example: mkdir backup: mkdir → command. backup → argument, You're telling mkdir: Create a directory called backup.
 
 What is $1?
 
 This is where $1 comes in.
 
-Create:
-
-nano argument.sh
-
-Put:
-
-#!/bin/bash
+Create: nano argument.sh. Put: #!/bin/bash
 
 echo "Hello $1"
 
 Save it.
 
-Then run:
+Then run: chmod +x argument.sh
 
-chmod +x argument.sh
-
-Now:
-
-./argument.sh Bethel
+Now: ./argument.sh Bethel
 
 You should get:
 
 Hello Bethel,
 
-#  What just happened?
+##  What just happened?
 
 Look at this:
 
@@ -343,17 +303,7 @@ So:
 
 $1 = Bethel
 
-Then our script says:
-
-echo "Hello $1"
-
-Bash sees $1 and says:
-
-"The first argument is Bethel."
-
-So it prints:
-
-Hello Bethel
+Then our script says: echo "Hello $1". Bash sees $1 and says: "The first argument is Bethel." So it prints: Hello Bethel
 
 bash = program
 
@@ -363,9 +313,10 @@ Bethel = argument
 
 so: $1 means the first arugment given to the script.
 
-# "What is an argument in Bash?"
+## "What is an argument in Bash?"
 
-"An argument is a value passed to a command or script when it is executed. In a Bash script, positional parameters such as $1 and $2 are used to access the arguments."
+"An argument is a value passed to a command or script when it is executed. In a Bash script, positional parameters such as $1 and $2 are used to 
+access the arguments."
 
 Remember the difference
 
@@ -379,11 +330,9 @@ Variable = stores information.
 
 Argument = gives information to a command or script.
 
-#  LESSON 6 — $@
+##  LESSON 6 — $@
 
-Now imagine we give the script many arguments:
-
-./argument.sh Atlas nginx postgresql gunicorn
+Now imagine we give the script many arguments:./argument.sh Atlas nginx postgresql gunicorn
 
 Instead of using:
 
@@ -406,17 +355,11 @@ echo "All arguments:"
 
 echo "$@"
 
-Run:
+Run: ./argument.sh Atlas nginx postgresql gunicorn
 
-./argument.sh Atlas nginx postgresql gunicorn
+You should see: All arguments: Atlas nginx postgresql gunicorn
 
-You should see:
-
-All arguments:
-
-Atlas nginx postgresql gunicorn
-
-# VERY IMPORTANT
+## VERY IMPORTANT
 
 Remember these three:
 
@@ -426,9 +369,7 @@ $2 → second argument
 
 $@ → all arguments
 
-For:
-
-./argument.sh Atlas nginx postgresql
+For: ./argument.sh Atlas nginx postgresql
 
 we have:
 
@@ -440,11 +381,8 @@ $@ = Atlas nginx postgresql.
 
 # What is a loop?
 
-A loop in Bash is a way to tell the computer:
-
-"Repeat this task multiple times."
-
-Instead of writing the same command again and again, you put it inside a loop.
+A loop in Bash is a way to tell the computer: Repeat this task multiple times. Instead of writing the same command again and again, you put it inside
+a loop.
 
 Without a loop
 
@@ -478,9 +416,10 @@ The output will be:
 - Number: 4
 - Number: 5
 
-# "What is a loop in Bash?"
+## "What is a loop in Bash?"
 
-"A loop is a control structure that allows me to repeatedly execute a command or group of commands for a specified set of values or until a condition is met. It helps automate repetitive tasks."
+"A loop is a control structure that allows me to repeatedly execute a command or group of commands for a specified set of values or until a condition
+ is met. It helps automate repetitive tasks."
 
 The three things to remember
 
@@ -498,13 +437,13 @@ do
 
 done
 
-# N/B
+## N/B
 
-What is $1?
+**What is $1?**
 
 $1 is the first argument passed to the script.
 
-What is $@?
+**What is $@?**
 
 $@ represents all the arguments passed to the script.
 
@@ -516,19 +455,9 @@ A loop repeats a set of commands.
 
 **What is a conditional?**
 
-A conditional allows Bash to make a decision.
+A conditional allows Bash to make a decision. Think: IF something is true → do this. ELSE → do something different. For example:
 
-Think:
-
-IF something is true → do this.
-
-ELSE → do something different.
-
-For example:
-
-If the Atlas server is running, say "Server is running."
-
-Otherwise, say "Server is down."
+If the Atlas server is running, say "Server is running."  Otherwise, say "Server is down."
 
 The basic Bash structure is:
 
@@ -545,6 +474,7 @@ else
 fi    
 
 What each part means
+
 if
 
 Means:
@@ -575,21 +505,9 @@ Notice that fi is if backwards.
 
 # What happened?
 
-We created:
+We created: name="Bethel". So the variable contains: Bethel, Then Bash checks: [ "$name" = "Bethel" ]
 
-name="Bethel"
-
-So the variable contains:
-
-Bethel
-
-Then Bash checks:
-
-[ "$name" = "Bethel" ]
-
-Which is basically asking:
-
-"Is the value of name equal to Bethel?"
+Which is basically asking: "Is the value of name equal to Bethel?"
 
 Yes.
 
@@ -599,9 +517,7 @@ echo "Hello Bethel"
 
 Your first if
 
-Create a file:
-
-nano decision.sh
+Create a file: nano decision.sh
 
 Put this inside:
 
@@ -628,7 +544,7 @@ You should see:
 
 Yes, 5 is greater than 3
 
-# Understand the structure
+## Understand the structure
 
 Look at this:
 
@@ -662,21 +578,13 @@ That's all an if statement is doing.
 
 What is -gt?
 
-This:
+This: -gt
 
--gt
+means: greater than
 
-means:
+So: [ 5 -gt 3 ]
 
-greater than
-
-So:
-
-[ 5 -gt 3 ]
-
-asks:
-
-Is 5 greater than 3?
+asks: Is 5 greater than 3?
 
 Yes.
 
@@ -694,9 +602,7 @@ to:
 
 [ 2 -gt 3 ]
 
-Now Bash asks:
-
-Is 2 greater than 3?
+Now Bash asks: Is 2 greater than 3?
 
 No.
 
@@ -718,20 +624,12 @@ fi
 
 fi tells Bash:
 
-The if statement is finished.
-
-It's basically if backwards.
+The if statement is finished. It's basically if backwards.
 
 
 Let's make it useful for Atlas
 
-Instead of asking:
-
-Is 5 greater than 3?
-
-we can ask:
-
-Is nginx running?
+Instead of asking: Is 5 greater than 3? we can ask: Is nginx running?
 
 Create:
 
@@ -739,7 +637,7 @@ nano nginx-check.sh
 
 Put:
 
-# N/B
+## N/B
 
 #!/bin/bash
 
@@ -800,7 +698,7 @@ Bash executes:
 echo "nginx is NOT running"
 
 
-#  What does your Bash script do?”
+## What does your Bash script do?”
 
 Say:
 
@@ -812,19 +710,13 @@ One thing to remember
 
 status=$(command)
 
-means:
+means: Run the command and store its output in status.
 
-Run the command and store its output in status.
+And: if [ "$status" = "active" ]
 
-And:
+means: Check whether status equals active.
 
-if [ "$status" = "active" ]
-
-means:
-
-Check whether status equals active.
-
-#   revision
+##  revision
 
 What is a conditional?
 
@@ -840,7 +732,7 @@ What did your nginx script do?
 
 It used systemctl is-active --quiet nginx to check whether nginx was running and then printed a different message depending on the result.
 
-#  Make an Atlas service checker
+## Make an Atlas service checker
 
 Now we'll use what you've learned to make something useful.
 
@@ -882,19 +774,9 @@ Now run:
 
 What happens?
 
-Bash receives:
+Bash receives: $1 = nginx, $2 = postgresql And: "$@"
 
-$1 = nginx
-
-$2 = postgresql
-
-And:
-
-"$@"
-
-contains:
-
-nginx postgresql
+contains: nginx postgresql
 
 The for loop takes them one at a time.
 
@@ -910,22 +792,15 @@ Then it checks:
 
 service = postgresql
 
-Bash checks:
+Bash checks: systemctl is-active --quiet postgresql. So you might get: nginx is running, postgresql is running
 
-systemctl is-active --quiet postgresql
-
-So you might get:
-
-nginx is running
-
-postgresql is running
-
-# N/B 
+## N/B 
 
 Why did i use $@?”
 
 
-I used $@ so the script can accept multiple service names as arguments. Instead of writing separate checks for nginx, PostgreSQL, and other services, I can pass them to the script and use a loop to check each one.
+- I used $@ so the script can accept multiple service names as arguments. Instead of writing separate checks for nginx, PostgreSQL, and other services,
+I can pass them to the script and use a loop to check each one.
 
 For example:
 
@@ -943,7 +818,7 @@ or:
 
 without changing the script.
 
-# The three things you've learned
+## The three things you've learned
 $1 = First argument
 
 $2 = Second argument
@@ -957,3 +832,6 @@ for service in "$@"
 means:
 
 Take each argument, one at a time, and temporarily call it service.
+
+## Functions, exit codes, and set -euo pipefail - why it matters for scripts you actually trust.
+
