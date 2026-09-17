@@ -67,67 +67,61 @@ zero. you will need to add your rules again and enable UFW.
 disable turn off my ufw while reset delete the rules and turn off ufw.
 
 #            SSH. disable password-based SSH (key-only).
-First we create shh key using (**ssh-keygen**). we will see something like, 
-(Enter file in which to save the key) we can skip it
-or enter a file to save our ssh key.
-AFTer that we create  passphrase for for our key or skip it.
-after that we have generate two keys the private and public key. 
-private key is what stay on my computer and it meant to be kept secret. and my
-public key it what stay on the server. it can be shared.
+First we create shh key using (**ssh-keygen**). this command create  two keys, the public key which we copy to the server and the private key that
+stays on my system and must not be shared. it will ask for a file to save the key. press enter for default. then it asks for a passphrase ypu can 
+create one or skip by pressing enter.
 
-Installing the public key to a server
-we use (**ssh-copy-id the server@ip a**)
-on the server we want to remotely connect to. this command copy our public key 
-to the sever we want to connect.
-password was ask i.e the server password, why? because we want to save the
-public key to the server.
+after that.i use (**ssh-copy-id the servername@ip a**) to copy the ssh pub key to the serve, we want to connect remotely. then a password was ask i.e
+the server password, why? because we want to save the public key to the server.
 
-after that we connect to the server using the command (**ssh server@ip a**) it
-will connect me without asking for password.
+after that we connect to the server using the command (**ssh server@ip a**) it will connect me without asking for password.(if we set a passphrase, 
+it will ask for the passphrase).
 
-Disable password Authentication.
-make sure the current ssh session is open.
-then i open a second terminal. we will us that to test the new cofiguration.
-ssh to the server again(**ssh bethel@ip a**). if that works, we have ssh key 
-authentication.
-our ssh server config is stored here (/etc/ssh/sshd_config.d).it is advisable we
-make a copy of the ssh config file, so that if we make a mistake we till have a 
-copy.
-we go to the ssh config file to set some things inside the file such at the 
-pubkeyAuthentication yes (this allow ssh keys)| passwordAuthentication no 
-(disable ssh password) | permiRootlogin no (root cannot directly ssh in)|
-kbdinteractiveAuthentication no (this disable keyboard_interactive 
-authentication, which can otherwise provide another interactive authentication)
-After that we save the config file and run th sudo sshd -t ( this actually text 
-the ssh server config fil for errors). if it produce no output, thatb is a good
-sign that the configuration syntax passed validation.
-after that we reload our ssh, using systemd command(**sudo systemctl reload ssh)
+**Disable password Authentication**
+
+make sure the current ssh session is open.then i open a second terminal. we will us that to test the new cofiguration. we ssh to the server again
+(**ssh bethel@ip a**). if that works, we have ssh key authentication. our ssh server config is stored here (/etc/ssh/sshd_config).it is advisable 
+we make a copy of the ssh config file, so that if we make a mistake we still have a copy. using sudo cp /etc/ssh/sshd_config  /etc/ssh/sshd_config.b
+we go to the ssh config file to set some things inside the file such at the **pubkeyAuthentication yes** (this allow ssh keys)| 
+**passwordAuthentication no**(disable ssh password) | **permiRootlogin no**(root cannot directly ssh in)|**kbdinteractiveAuthentication no**
+(this disable keyboard_interactive authentication, which can otherwise provide another interactive authentication) After that we save the config file
+and run th **sudo sshd -t** ( this actually tests the ssh server config fil for errors). if it produce no output, that is a good sign that the 
+configuration syntax passed validation.after that we reload our ssh, using systemd command(**sudo systemctl reload ssh)
 
 N/B
-we do not use sudo to create a ssh key for our user.
+we do not use sudo to create a ssh key for our user. if we use sudo is creates ssh key to the root. which we do not need. alway use ssh-keygen not 
+sudo ssh-keygen.
 
 ## INSTALLING AND CONFIGURE NGINX AS A REVERSE PROXY ON MY LAPTOP IP
-NOTE;
-Nginx is acting as a reverse proxy because the client communicates with Nginx,
-while Nginx forwards the request to the backend application.
 
-Installing Nginx:
-we use the command **sudo apt update**. we run this command to update the package list about available software.
-after that we run **sudo apt install nginx** this command is what install nginx webserver on the system.
-then we use the sevice manager  to check the state of nginx **sudo systemctl status nginx**. this command or 
-systemd service manger is use to start, restart, enable,stop, and check the status of any services.
-then we check nginx configuration file ** ls /etc/nginx/**. we see many directories and files.
-with nginx user hit http://ip a on port 80, app can hide behide nginx i.e apps can not be exposed directly.
-nginx can run 10 apps with different domains. it can handles ssl, static files, proxying.
+**NOTE;**
 
-we need a need a backend so we can actually demonstrate reverse proxy.
-i created an Atlas directory. using the command **mkdir -p atlas-backend**. after that i created a placeholder 
-page inside my atlas-backend folder. using **nano atlas-backend/index.html** inside the file i imput (<h1>Atlas 
-Reverse Proxy</h1>  <p> Request successfully reached the backend through niginx.</P>)
-After we use the command **ython3 -m http.server 5000 --bind 127.0.0.1** this command means python, start a 
-simple web server on this computer, listening on port 5000, and do not expose that server directly to the 
-nextwork. 
-i leave it running then i open a new terminal and run this command curl http://1270.0.1:5000
-it will show the text we did in the index.html
-now let configure nginx as a reverse proxy, first we open the config file with sudo nano /etc/nginx/
-sites-available/atlas. this is where i build the configuration line by line.
+Nginx is acting as a reverse proxy because the client communicates with Nginx, while Nginx forwards the request to the backend application.
+
+**Installing Nginx:**
+
+**sudo apt update**. we run this command to update the package list about available software. after that we run **sudo apt install nginx** this
+command is what install nginx webserver on the system.then we use the service manager to check the state of nginx **sudo systemctl status nginx**.
+this command or systemd service manger is used to start, restart, enable,stop, and check the status of any services.then we check nginx configuration
+file  **ls /etc/nginx/**. we see many directories and files. sudo not needed. with nginx, user hits http://ip a on port 80, app can hide behide nginx
+i.e apps can not be exposed directly. nginx can run 10 apps with different domains. it can handles ssl, static files, proxying.
+
+we need a backend so we can actually demonstrate reverse proxy. i created an Atlas directory. using the command **mkdir -p atlas-backend**
+after that i created a placeholder page inside my atlas-backend folder. using **nano atlas-backend/index.html** inside the file i input (<h1>Atlas 
+Reverse Proxy</h1>  <p> Request successfully reached the backend through niginx.</P>) After we use the command 
+**python3 -m http.server 5000 --bind 127.0.0.1** this command means python, start a simple web server on this computer, listening on port 5000, and do 
+not expose that server directly to the nextwork. i leave it running then i open a new terminal and run this command **curl http://127.0.0.1:5000**
+it will show the text from the index.html
+
+now let configure nginx as a reverse proxy, first we open the config file with sudo nano /etc/nginx/sites-available/atlas. this is where i build the
+configuration line by line.then we Enable the Atlas Nginx site with sudo ln -s /etc/nginx/sites-available/atlas /etc/nginx/sites-enabled.
+What this does: Creates a symbolic link so Nginx knows that the atlas configuration should be enabled.
+
+test the Nginx configuration: sudo nginx -t. What this does: Checks the Nginx configuration for syntax errors before we reload Nginx.
+
+You want to see something like: syntax is ok, test is successful.
+
+Reload Nginx: sudo systemctl reload nginx. What this does: Tells the already-running Nginx service to load the new configuration without completely
+stopping the web server.
+
+test the Atlas reverse proxy: curl http://YOUR_SERVER_IP, Replace YOUR_SERVER_IP with your Ubuntu server's IP address.
