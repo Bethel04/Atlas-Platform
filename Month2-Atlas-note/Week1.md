@@ -72,83 +72,20 @@ as a program. then we run ./hello.sh  and the output will be hello.
 
 ## Now variables
 
-A variable is a named container that stores a value so you can use that value later.
-
-Think of it like a labeled box.
-
-Box labeled name → contains "Bethel"
-
-Box labeled age → contains 25
-
-In Bash:
-
-name="Bethel"
-
-age=25
-
-Here: name is the variable
-
-"Bethel" is the value
-
-age is the variable
-
+A variable is a named container that stores a value so you can use that value later. Think of it like a labeled box. Box labeled name → contains 
+"Bethel". Box labeled age → contains 25, In Bash: name="Bethel" and age=25. Here: name is the variable, "Bethel" is the value, age is the variable
 25 is the value
 
-Using the variable
-
-To get the value stored inside a Bash variable, put $ before its name:
-
-example name="Bethel"
-
-echo $name
-
-Output:
-
-Bethel
-
-So:
-
-name="Bethel"
-
-means:
-
-"Create a variable called name and store Bethel inside it."
-
-And:
-
-echo $name
-
-means:
-
-"Show me what is stored inside the name variable."
-
+Using the variable. To get the value stored inside a Bash variable, put $ before its name: for example. name="Bethel". (echo $name ) and the Output:Bethel
+So: name="Bethel". which means:"Create a variable called name and store Bethel in it." And: echo $name, which means: print the value inside the name the output:bethel
 A variable is a named storage location that allows me to store a value and reuse that value in my script."
+For example: server="Atlas", echo "My server is $server". Output:My server is Atlas
 
-For example:
-
-server="Atlas"
-
-echo "My server is $server"
-
-Output:
-
-My server is Atlas
-
-Important Bash rule: don't put spaces around =.
-
-Correct:
-
-name="Bethel"
+Important Bash rule: don't put spaces around =. example Correct: name="Bethel"
 
 ## Let's actually do it
 
-Create another script:
-
-nano variable.sh
-
-Put:
-
-#!/bin/bash
+Create another script: nano variable.sh  then inPut: #!/bin/bash ( this is the shebang- it excute our script with bash).
 
 name="bethel"
 
@@ -156,42 +93,13 @@ echo "$name"
 
 Save it.
 
-Then:
-
-chmod +x variable.sh
-
-Run:
-
-./variable.sh
-
-You should see:
-
-bethel
+Then: chmod +x variable.sh then we Run: ./variable.sh the output:bethel
 
 Stop here and understand this
 
-We wrote:
+We wrote: name="Atlas", That means: variable name = name and the value = Atlas, Then:echo "$name", means: "Print whatever is inside the variable called name."
 
-name="Atlas"
-
-That means:
-
-variable name = name
-value = Atlas
-
-Then:
-
-echo "$name"
-
-means:
-
-"Print whatever is inside the variable called name."
-
-Therefore:
-
-name="bethel"
-
-Atlas
+Therefore: name="bethel"
 
 echo "$name"
 
@@ -835,3 +743,268 @@ Take each argument, one at a time, and temporarily call it service.
 
 ## Functions, exit codes, and set -euo pipefail - why it matters for scripts you actually trust.
 
+# functions?
+
+A function is a named group of commands that we can run whenever we need it.
+
+In Bash scripts, functions are reusable blocks of code that act like "mini-scripts" within your main script. They help you avoid repeating code, making your scripts cleaner and easier to maintain. 
+
+here are two different ways to define a function in Bash.
+
+    Preferred Syntax (Most Common) The first format starts with the function name, followed by parentheses. This is the preferred and most-used syntax.
+    sh
+
+    function_name () {
+      commands
+    }
+
+    Single line version:
+    sh
+
+    function_name () { commands; }
+
+    Using the function Keyword The second format starts with the reserved word function, followed by the function name.
+    sh
+
+    function function_name {
+      commands
+    }
+
+    Single line version:
+    sh
+
+    function function_name { commands; }
+
+Important points to note:
+
+- The commands inside the curly braces ({}) make up the function body.
+- The opening and closing braces must be separated from the body by spaces or newlines.
+- A function runs only when explicitly called by name.
+- The function must be defined before it is called.
+- When using single-line “compacted” functions, a semicolon ; is required after the last command.
+- Use descriptive function names whenever possible.
+
+## Example: Hello World Function
+
+What problem does a function solve?. Look at what we already built. Our server-check.sh contains this:
+
+if systemctl is-active --quiet "$service"; then
+
+    echo "$service is running"
+
+else
+
+    echo "$service is not running"
+
+fi
+
+That block checks a service.
+
+Now imagine a much bigger script where you need to perform that same check in several places.
+
+You could copy and paste the block repeatedly, but that creates a problem:
+
+Lots of repeated code
+       ↓
+Harder to read
+       ↓
+Harder to change
+       ↓
+More opportunities for mistakes
+
+A function solves this by letting us give that block a name.
+
+Think of a function as a named tool:
+
+             check_service
+                  │
+                  ▼
+        ┌──────────────────┐
+        │ Check service    │
+        │ Is it running?   │
+        │ Print result     │
+        └──────────────────┘
+
+Then whenever we need it:
+
+check_service nginx
+
+We call the tool.
+
+2.  The basic structure
+
+A Bash function looks like this:
+
+function_name() {
+  
+    commands
+
+}
+
+For example:
+
+hello() {
+    
+    echo "Hello"
+
+}
+
+We've defined a function called hello.
+
+But notice something important:
+
+Defining a function doesn't run it.
+
+We have to call it:
+
+hello
+
+Then Bash executes the commands inside it.
+
+So:
+
+DEFINE
+  ↓
+hello() {
+    
+    echo "Hello"
+
+}
+  ↓
+CALL
+  ↓
+
+hello
+  
+  ↓
+Hello
+
+## Let's build our first function together
+
+Create:
+
+nano function1.sh
+
+Put:
+
+#!/bin/bash
+
+greet() {
+
+    echo "Hello from Bash"
+
+}
+
+greet
+
+Save and make it executable:
+
+chmod +x function1.sh
+
+Run:
+
+./function1.sh
+
+You should get:
+
+Hello from Bash
+
+## Understand the function
+
+This: greet() {
+
+means: I'm creating a function called greet.
+
+Then: echo "Hello from Bash"
+
+is the command belonging to the function.
+
+Then:
+
+}
+
+means: The function ends here.
+
+Finally: greet
+
+means: Run the function.
+
+##  Now let's give the function information
+
+This is where functions connect with the arguments you already learned.
+
+Change the script to:
+
+#!/bin/bash
+
+greet() {
+
+    echo "Hello $1"
+
+}
+
+greet Bethel
+
+Run:
+
+./function1.sh
+
+You should get:
+
+Hello Bethel
+
+Why?
+
+Because:
+
+greet Bethel
+
+passes Bethel into the function.
+
+Inside the function:
+
+$1
+
+represents the first argument given to the function.
+
+So:
+
+greet Bethel
+
+     ↓
+    $1
+
+     ↓
+  Bethel
+
+## work
+
+What is a function?
+
+A function is a named block of commands that I can call and reuse in a Bash script.
+
+Why did i use functions?
+
+To organize my script and avoid repeating the same commands. It makes the script easier to maintain and reuse.
+
+How do 1 define a function?
+
+I give it a name followed by () and put the commands inside { }.
+
+Example:
+
+check_service() {
+
+    ...
+
+}
+
+How do you run a function?
+
+I call its name.
+
+check_service nginx
+
+What is $1 inside the function?
+
+It represents the first argument passed to that function.
