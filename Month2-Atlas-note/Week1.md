@@ -747,264 +747,251 @@ Take each argument, one at a time, and temporarily call it service.
 
 A function is a named group of commands that we can run whenever we need it.
 
-In Bash scripts, functions are reusable blocks of code that act like "mini-scripts" within your main script. They help you avoid repeating code, making your scripts cleaner and easier to maintain. 
+A function is a block of code or a block of commands that carries out  a specific task o activities.
 
-here are two different ways to define a function in Bash.
+example: Check_service() {}. this tells bash that this is the name of a function, this { is where i write down does command } this close my command inside the function.
+remember to call the function so that bash will know the function to execute. e.g check_service
 
-    Preferred Syntax (Most Common) The first format starts with the function name, followed by parentheses. This is the preferred and most-used syntax.
-    sh
+## Exist code?
 
-    function_name () {
-      commands
-    }
+**what is exit code?**
 
-    Single line version:
-    sh
+Every command i run normally finishes with a number. that number tell bash: did the command succeed or fail. 0 = means succeed while
+non-zero = failure
 
-    function_name () { commands; }
+**what is $?, exit code of the most recently executed command, for example; mkdir bethel, then i run echo $?, 
 
-    Using the function Keyword The second format starts with the reserved word function, followed by the function name.
-    sh
+echo $? asks what was the resuit of mkdir bethel.
 
-    function function_name {
-      commands
-    }
+## set -euo pipefail
 
-    Single line version:
-    sh
+this is bash strictly mode this cause bash to behave in a way that makes many classes of subtle buges impossible. you will spend much time debugging 
+and avoid having unexpected complication in production.
 
-    function function_name { commands; }
+**set -e:**  tells bash to stop the script when a command fails instead of blindly continuing. or tells bash to stop the script when a command fails
+instead of continuing with the next commands.
+**set -u**  deal with variable that dont exist, without set -u if you run echo "starting", echo "$name", echo "finished". the result will be starting 
+and running.
+notice something $name does not exist, but bash does not actually stop. it treat the missing variable as an empty value but with **set -u** it will 
+not run. this is usefull because imgine you intended. example: directory="/home/bethe/atlas" but accidentailly forget to set it. without set -u
+your script might continue with an empty variable and do something you did not intend. with set -u bash say hold on. you are trying to use a variable
+that has not been defined.
+**set -u** make bash treat the use of unset varibales as an error instead of silently treating them as empty.
 
-Important points to note:
+- set -e = command failure
+- set -u = unset variable
 
-- The commands inside the curly braces ({}) make up the function body.
-- The opening and closing braces must be separated from the body by spaces or newlines.
-- A function runs only when explicitly called by name.
-- The function must be defined before it is called.
-- When using single-line “compacted” functions, a semicolon ; is required after the last command.
-- Use descriptive function names whenever possible.
+What is a pipefail?
 
-## Example: Hello World Function
+a pipe (|) connect commands, example it reads. take the output of the first command and send it to the next command. 
+example cat atlas.log | grep "error". pipeline can contains multiple commands: example: command1| command2|command3, what if:
+- command1 - fails
+- command2 - successs
+- command3 - success
 
-What problem does a function solve?. Look at what we already built. Our server-check.sh contains this:
+without pipefail. bash ca sometimes consider the pipeline successful because the last command succeeded, that can hide the fact that something failed.
 
-if systemctl is-active --quiet "$service"; then
+set -o pipefail, will tell bash. if something in my pipeline fails. i want that failure in the pipeline exit status.
 
-    echo "$service is running"
+## what does pipefail do?
 
-else
+pipefail make a pipeline fail if one of the commands in the pipeline fails, rather than hiding the failure behind a successful final command.
 
-    echo "$service is not running"
+    The whole senario of **set -euo**
 
-fi
+-e = stop on command failures
 
-That block checks a service.
+-u = catch unset variables
 
-Now imagine a much bigger script where you need to perform that same check in several places.
+- o pipefail = catch failures inside pipelines.
 
-You could copy and paste the block repeatedly, but that creates a problem:
+pipefail prevent a failed command from hiding by a successfuk command. later in the pipeline, it makes the pipeline report the failure.
 
-Lots of repeated code
-       ↓
-Harder to read
-       ↓
-Harder to change
-       ↓
-More opportunities for mistakes
 
-A function solves this by letting us give that block a name.
+## N/B  
 
-Think of a function as a named tool:
+1. () in a function
 
-             check_service
-                  │
-                  ▼
-        ┌──────────────────┐
-        │ Check service    │
-        │ Is it running?   │
-        │ Print result     │
-        └──────────────────┘
+"This is a function."
 
-Then whenever we need it:
+You can think of it as the function's definition marker.Then: check_service. this calls the function.
+
+Important: The () here do not contain the arguments. This: check_service() {
+
+means: Create the function.
+
+This:
 
 check_service nginx
 
-We call the tool.
+means:
 
-2.  The basic structure
+Run the function and give it nginx as an argument.
 
-A Bash function looks like this:
+2. $() — command substitution
 
-function_name() {
-  
-    commands
+This is different:
 
-}
+$(command)
 
-For example:
+It means:
 
-hello() {
-    
-    echo "Hello"
-
-}
-
-We've defined a function called hello.
-
-But notice something important:
-
-Defining a function doesn't run it.
-
-We have to call it:
-
-hello
-
-Then Bash executes the commands inside it.
-
-So:
-
-DEFINE
-  ↓
-hello() {
-    
-    echo "Hello"
-
-}
-  ↓
-CALL
-  ↓
-
-hello
-  
-  ↓
-Hello
-
-## Let's build our first function together
-
-Create:
-
-nano function1.sh
-
-Put:
-
-#!/bin/bash
-
-greet() {
-
-    echo "Hello from Bash"
-
-}
-
-greet
-
-Save and make it executable:
-
-chmod +x function1.sh
-
-Run:
-
-./function1.sh
-
-You should get:
-
-Hello from Bash
-
-## Understand the function
-
-This: greet() {
-
-means: I'm creating a function called greet.
-
-Then: echo "Hello from Bash"
-
-is the command belonging to the function.
-
-Then:
-
-}
-
-means: The function ends here.
-
-Finally: greet
-
-means: Run the function.
-
-##  Now let's give the function information
-
-This is where functions connect with the arguments you already learned.
-
-Change the script to:
-
-#!/bin/bash
-
-greet() {
-
-    echo "Hello $1"
-
-}
-
-greet Bethel
-
-Run:
-
-./function1.sh
-
-You should get:
-
-Hello Bethel
-
-Why?
-
-Because:
-
-greet Bethel
-
-passes Bethel into the function.
-
-Inside the function:
-
-$1
-
-represents the first argument given to the function.
-
-So:
-
-greet Bethel
-
-     ↓
-    $1
-
-     ↓
-  Bethel
-
-## work
-
-What is a function?
-
-A function is a named block of commands that I can call and reuse in a Bash script.
-
-Why did i use functions?
-
-To organize my script and avoid repeating the same commands. It makes the script easier to maintain and reuse.
-
-How do 1 define a function?
-
-I give it a name followed by () and put the commands inside { }.
+Run this command and put its output here.
 
 Example:
 
-check_service() {
+name=$(whoami)
 
-    ...
+Bash runs:
+
+whoami
+
+Suppose it produces:
+
+bethel
+
+Then Bash effectively makes:
+
+name="bethel"
+
+So:
+
+$(command)
+   ↓
+
+run command
+   ↓
+
+take its output
+   ↓
+
+put that output here
+
+3. $(( )) — arithmetic
+
+You used this in your even/odd script:
+
+$((Number % 2))
+
+The double parentheses:
+
+$((       ))
+  ↑     ↑
+
+tell Bash:
+
+Perform arithmetic.
+
+For example:
+
+number=22
+
+echo $((number + 5))
+
+gives:
+
+27
+
+And:
+
+echo $((22 % 2))
+
+gives:
+
+0
+
+So:
+
+$(( )) → mathematics
+
+4. [ ] — testing a condition
+
+You've also been using:
+
+if [ $((Number % 2)) -eq 0 ]; then
+
+The brackets:
+
+[       ]
+
+tell Bash:
+
+Test whether something is true or false.
+
+For example:
+
+if [ 10 -eq 10 ]; then
+
+    echo "They are equal"
+fi
+
+Bash asks:
+
+Is 10 equal to 10?
+
+Yes → the then section runs.
+
+So don't mix them up
+
+Look at these four:
+
+check_service()
+
+Function definition
+
+$(whoami)
+
+Run a command and use its output
+
+$((22 % 2))
+
+Do arithmetic
+
+[ 22 -eq 22 ]
+
+Test a condition
+
+A simple memory trick
+
+Think:
+
+()       → function
+
+$( )     → command output
+
+$(( ))   → calculation
+
+[ ]      → question/test
+
+And notice something interesting
+
+The symbols look similar because Bash uses them for different kinds of operations.
+
+For example, your script:
+
+check_number() {
+
+    number="$1"
+
+    if [ $((number % 2)) -eq 0 ]; then
+
+        echo "$number is even"
+
+    else
+
+        echo "$number is odd"
+
+    fi
 
 }
 
-How do you run a function?
+contains three different types of brackets:
 
-I call its name.
+check_number()     → function
 
-check_service nginx
+[ ... ]            → condition/test
 
-What is $1 inside the function?
+$(( ... ))         → arithmetic
 
-It represents the first argument passed to that function.
+That's why it is important to learn what each one means rather than thinking they're all just "parentheses."
+

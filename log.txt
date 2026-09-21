@@ -1,0 +1,6 @@
+
+INFO User logged in
+ERROR Database connection failed
+INFO Request received
+ERROR Nginx returned 502
+INFO Request completed
