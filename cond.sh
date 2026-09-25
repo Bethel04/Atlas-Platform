@@ -1,8 +1,7 @@
 #!/bin/bash
 
 hello() {
-    echo "Hello"
+    echo "Hello $1"
 }
 
-hello bethel 
-hello john
+hello BETHEL
