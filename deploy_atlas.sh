@@ -4,39 +4,41 @@ set -euo pipefail
 
 SERVICE="atlas.service"
 ATLAS_DIR="/home/bethel/Atlas-Platform1"
-HEALTH_URL="http://127.0.0.1"
-
+URL="http://127.0.0.1:5000"
 
 atlas_app() {
-
     cd "$ATLAS_DIR"
 
     echo "Pulling latest code..."
     git pull
 
-    echo "Restarting $SERVICE..."
+    echo "Restarting SERVICE..."
     sudo systemctl restart "$SERVICE"
-
-    echo "checking git..."
-    git status
      
     echo "Checking service..."
 
-    if systemctl is-active --quiet "$SERVICE"; 
-    then
-        echo "$SERVICE is active"
+       if systemctl is-active --quiet "$SERVICE"; 
+       then
+           echo "$SERVICE is running"
     else
         echo "$SERVICE is dead"
     fi
 
-    echo "Checking application health..."
-    if curl -fsS --max-time 5 http://127.0.0.1/5000 > /dev/null;
-    then
-        echo "Atlas application is healthy"
-    else
-        echo "Atlas application health check failed"
-        echo $?
-    fi
-}
+    echo "checking services..."
+    
+     for service in nginx, ssh
+    do 
+      echo "Checking $service"
+    done
 
+    echo "Running Atlas health Checking..." 
+
+    python3 healthcheck.py
+
+    if [ $? -ne 0 ]; then
+      echo "Atlas health check failed."
+      exit 1
+    fi
+    echo "Atlas deployment successful."
+}
 atlas_app 
