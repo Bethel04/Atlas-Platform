@@ -25,7 +25,7 @@ atlas_app() {
     fi
 
     echo "checking services..."
-    
+
      for service in nginx, ssh
     do 
       echo "Checking $service"
