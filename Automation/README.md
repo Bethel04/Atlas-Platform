@@ -45,7 +45,7 @@ gzip
     ↓
 
 timestamped backup file
-```
+
 
 The database used by Atlas is `atlas_notes`.
 
