@@ -1,4 +1,4 @@
-with open("week1.md", "r") as file:
+with open("server.text", "r") as file:
     content = file.read()
 
 print(content)    

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-BACKUP_DIR="$HOME/Atlas-Platform1/atlas-backups"
+BACKUP_DIR="$HOME/Atlas-Platform1/"
 DATABASE="atlas_notes"
 TIMESTAMP=$(date +"%Y-%m-%d_%H-%M-%S")
 
