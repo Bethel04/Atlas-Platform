@@ -7,21 +7,20 @@ DATABASE="atlas_notes"
 TIMESTAMP=$(date +"%Y-%m-%d_%H-%M-%S")
 BACKUP_FILE="$BACKUP_DIR/${DATABASE}_${TIMESTAMP}.sql.gz"
 SERVICE="atlas.service"
-ATLAS_DIR="/home/bethel/Atlas-Platform1"
-
+ATLAS_DIR="/home/bethel/Atlas-Platform1/Automation"
 
 atlas_app() {
     cd "$ATLAS_DIR"
 
     echo "Pulling latest code..."
-    git pull
+    git pull;
 
     echo "Restarting SERVICE..."
-    sudo systemctl restart "$SERVICE"
+    sudo systemctl restart "$SERVICE";
      
     echo "Checking service..."
 
-       if systemctl is-active --quiet "$SERVICE"; 
+    if systemctl is-active --quiet "$SERVICE"; 
        then
            echo "$SERVICE is running"
     else

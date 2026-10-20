@@ -993,5 +993,286 @@ check_number()     → function
 
 $(( ... ))         → arithmetic
 
-That's why it is important to learn what each one means rather than thinking they're all just "parentheses."
+That's why it is important to learn what each one means rather than thinking they're all just "parentheses".
+
+## Text processing tools - grep, sed, awk basics for parsing logs.
+
+1. grep:
+
+- grep → FIND
+- sed  → CHANGE
+- awk  → EXTRACT / ANALYZE
+
+What is grep? 
+
+grep is a linux command use to search text.
+
+Imagine you have:
+
+INFO User logged in
+ERROR Database connection failed
+INFO Request received
+ERROR Nginx returned 502
+INFO Request completed
+
+You want to find the lines containing:
+
+ERROR
+
+You use:
+
+grep "ERROR" log.txt
+
+Read that as: Search log.txt for ERROR and show me the lines that contain it.
+
+# Ignore uppercase/lowercase
+
+grep -i error log.tx. -i means ignore case.
+
+-i doesn't tell Bash to ignore lowercase specifically. It tells grep to ignore case.
+
+That means it treats these as the same:
+
+ERROR
+error
+Error
+eRrOr
+
+means:
+
+Search textlab.log for error, without caring whether the letters are uppercase or lowercase.
+
+so remember.
+
+- grep          → search
+- "error"       → what to search for
+- textlab.log   → where to search
+- -i            → ignore case
+
+**Lab 5 — Show line numbers**
+
+We want grep to tell us which line contains ERROR.
+
+-n tells grep to show the line number alongside each matching line.
+
+So:
+
+grep -n "ERROR" textlab.log
+
+gave you:
+
+- 2:ERROR Database connection failed
+- 4:ERROR Nginx returned 502
+- 7:ERROR Application crashed
+
+The numbers tell us where the matching lines are in the file:
+
+Lab 6 — Combine options
+
+grep -in "error" textlab.log
+
+means:
+
+grep → search
+- -i → ignore uppercase/lowercase
+- -n → show the line number
+- "error" → what we're searching for
+- textlab.log → the file we're searching
+
+So the result:
+
+- 2:ERROR Database connection failed
+- 4:ERROR Nginx returned 502
+- 7:ERROR Application crashed
+
+tells us: Find error in textlab.log, regardless of case, and show me the line number where each match occurs.
+
+grep -v "INFO" textlab.log:
+
+-v inverts the match — it means “ignore the matching lines and show everything else.”
+
+grep -in "error" textlab.log
+
+Search textlab.log for error, don't care about uppercase/lowercase, and show me the line numbers where the matches are found.
+
+And notice something important: You are not changing the log file.
+
+grep is only reading/searching it and showing you the results.
+
+## Lab 1 — Read through sed:
+
+sed -n '1,7p' textlab.log
+
+Think of sed as a text-reading and text-editing tool.
+
+For now, we're using it only to read selected lines.
+
+Break it apart:
+
+sed
+
+➡️ The tool we're using.
+
+-n
+
+➡️ Means "don't automatically print everything."
+
+Without -n, sed normally prints the lines it processes.
+
+Then:
+
+'1,7p'
+
+This is the instruction we're giving sed.
+
+- 1 → start at line 1
+- 7 → stop at line 7
+- p → print
+
+So:
+
+'1,7p'
+
+means:
+
+Print lines 1 through 7.
+
+Finally:
+
+textlab.log
+
+➡️ The file we're working on.
+
+So the whole command means:
+
+Use sed to print lines 1 through 7 from textlab.log.
+
+sed -n '2p' textlab.log: mean print line two from textlab.log.
+
+
+AWK — What You Actually Need to Know
+1. What is AWK?
+
+AWK is a text-processing tool used to read lines, split them into fields, and extract or process information.
+
+Think:
+
+AWK = read → split → select → process
+
+2. Fields/columns
+
+Your log:
+
+ERROR Database connection failed
+
+AWK sees:
+
+$1        $2          $3          $4
+ERROR     Database    connection  failed
+
+So remember:
+
+- $1 = first field
+- $2 = second field
+- $3 = third field
+- $4 = fourth field
+
+3. Basic AWK command
+
+awk '{print $1}' textlab.log
+
+Means:
+
+Read every line in textlab.log and print the first field.
+
+For $2:
+
+awk '{print $2}' textlab.log
+
+Means:
+
+Print the second field from every line.
+
+4. print
+
+print $1
+
+means:
+
+Show me the first field.
+
+So:
+
+awk '{print $1}' textlab.log
+
+is basically:
+
+AWK, read this file and show me the first word from every line.
+
+The one AWK command you should remember for logs
+
+This is where we're heading:
+
+awk '$1 == "ERROR" {print}' textlab.log
+
+Meaning:
+
+If the first field is ERROR, print that line.
+
+With your file, it would find:
+
+- ERROR Database connection failed
+- ERROR Nginx returned 502
+- ERROR Application crashed
+
+That's much closer to real log investigation.
+
+Your cheat sheet
+
+Write this down:
+
+AWK
+----
+AWK = text processing tool
+
+- $1 = first field
+- $2 = second field
+- $3 = third field
+- $4 = fourth field
+
+print = display
+
+awk '{print $1}' file
+
+→ print first field of every line
+
+awk '{print $2}' file
+
+→ print second field of every line
+
+awk '$1 == "ERROR" {print}' file
+
+→ print lines whose first field is ERROR
+
+One thing to remember forever
+
+$1 does NOT mean line 1.
+
+This is very important.
+
+sed -n '2p' file
+
+line 2
+
+but:
+
+awk '{print $2}' file
+
+field/column 2
+
+That's the difference.
+
+# CRON
+
+
 
