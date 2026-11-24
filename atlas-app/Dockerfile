@@ -1,7 +1,7 @@
-FROM python:3.14.4
+FROM python:3.11-slim
 WORKDIR /atlas-app
-COPY app.py .
 COPY requirements.txt .
 RUN pip install -r requirements.txt  
+COPY app.py .
 EXPOSE 8080
-CMD ["python","app.py"]
+CMD ["gunicorn", "--bind", "0.0.0.0:8080", "app:app"]
