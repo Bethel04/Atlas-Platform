@@ -1,24 +1,17 @@
 # Linux Administration Essentials
 
-## 1. User and Group Manangement
+## 1. User and Group Manangement.
 
-### 1.2.Introduction to Linux users
+## 2.File Ownership and Permissions.
 
-### 1.3 Types of Linux users
+## 3. Process Management.
 
-### 1.4 User Identification
+## 4 Package Mangement.
 
-### 1.5 User Management Commands
+## 5 System Services and systemd.
 
-### 1.6 Linux Group
+## 6 System Logs and Troubleshooting.
 
-### 1.7 Adding Users to Groups
-
-### 1.8 Practical: Atlas Developer Team
-
-### 1.9 Security Importance
-
-### 1.10 Conclusion
 
 ### 1. User and Group Management
 
